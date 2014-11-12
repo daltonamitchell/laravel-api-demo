@@ -2,7 +2,7 @@
 
 use Acme\Transformers\LessonTransformer;
 
-class LessonsController extends \BaseController {
+class LessonsController extends ApiController {
 	/**
 	 * @var \Acme\Transformers\LessonTransformer
 	 */
@@ -21,9 +21,9 @@ class LessonsController extends \BaseController {
 	public function index()
 	{
 		$lessons = Lesson::all();
-		return Response::json([
+		return $this->respond([
 			'data' => $this->lessonTransformer->transformCollection($lessons->all())
-		], 200);
+		]);
 	}
 
 
@@ -60,16 +60,12 @@ class LessonsController extends \BaseController {
 		$lesson = Lesson::find($id);
 
 		if ( !$lesson ) {
-			return Response::json([
-				'error' => [
-					'message' => 'Lesson does not exist'
-				]
-			], 404);
+			return $this->respondNotFound('Lesson does not exist');
 		}
 
-		return Response::json([
+		return $this->respond([
 			'data' => $this->lessonTransformer->transform($lesson)
-		], 200);
+		]);
 	}
 
 
