@@ -7,7 +7,7 @@ class LessonTransformer extends Transformer
 	 * @param  array  $lesson
 	 * @return array
 	 */
-	public function transform(array $lesson)
+	public function transform($lesson)
 	{
 		return [
 			'title' => $lesson['title'],
