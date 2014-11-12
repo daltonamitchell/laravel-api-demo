@@ -12,7 +12,7 @@ class LessonsController extends ApiController {
 	{
 		$this->lessonTransformer = $lessonTransformer;
 
-		$this->beforeFilter('auth.basic');
+		$this->beforeFilter('auth.basic', ['on' => 'post']);
 	}
 
 	/**
