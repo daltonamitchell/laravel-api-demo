@@ -58,6 +58,24 @@ class ApiController extends \BaseController {
 		return $this->setStatusCode(self::HTTP_BAD_PARAMS)->respondWithError('Parameters failed validation!');
 	}
 
+	/**
+	 * @param  Paginator $lessons
+	 * @param  $data
+	 * @return mixed
+	 */
+	public function respondWithPagination(Paginator $lessons, $data)
+	{
+
+		$data = array_merge($data, [
+			'paginator' => [
+				'total_count' => $lessons->getTotal(),
+				'total_pages' => ceil($lessons->getTotal() / $lessons->getPerPage()),
+				'current_page' => $lessons->getCurrentPage(),
+				'limit' => $lessons->getPerPage()
+			]
+		]);
+		return $this->respond($data);
+	}
 
 	/**
 	 * Handle successful creation responses
@@ -117,4 +135,5 @@ class ApiController extends \BaseController {
 			'status_code' => $this->getStatusCode()
 		]);
 	}
+
 }
