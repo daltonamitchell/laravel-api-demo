@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Pagination\Paginator;
 
 class ApiController extends \BaseController {
 
